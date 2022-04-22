@@ -17,7 +17,7 @@ export default {
     username: 'root',
     password: '123456',
     database: 'test',
-    synchronize: false,     // 如果第一次使用，不存在表，有同步的需求可以写 true
+    synchronize: false, // 如果第一次使用，不存在表，有同步的需求可以写 true
     logging: false,
     timezone: '+08:00',
   },

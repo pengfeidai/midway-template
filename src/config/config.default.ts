@@ -14,15 +14,26 @@ export default {
   midwayLogger: {
     clients: {
       appLogger: {
-        contextFormat: info => {
+        contextFormat: (info) => {
           const ctx = info.ctx;
           const userId = (ctx.userId as string) || '-';
           const traceId = ctx.reqId || '-';
           const use = Date.now() - ctx.startTime;
-          const ret = userId + '/' + ctx.ip + '/' + traceId + '/' + use.toString() + 'ms ' + ctx.method + ' ' + ctx.url;
+          const ret =
+            userId +
+            '/' +
+            ctx.ip +
+            '/' +
+            traceId +
+            '/' +
+            use.toString() +
+            'ms ' +
+            ctx.method +
+            ' ' +
+            ctx.url;
           return ret;
-        }
-      }
-    }
+        },
+      },
+    },
   },
 } as DefaultConfig;

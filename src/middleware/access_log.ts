@@ -1,15 +1,14 @@
 import { App } from '@midwayjs/decorator';
 
-import {
-  IMidwayWebNext,
-  IMidwayWebApplication,
-} from '@midwayjs/web';
+import { IMidwayWebNext, IMidwayWebApplication } from '@midwayjs/web';
 import { IMiddleware } from '@midwayjs/core';
 import { Middleware } from '@midwayjs/decorator';
 import { Context } from 'egg';
 
 @Middleware()
-export class AccessLogMiddleware implements IMiddleware<Context, IMidwayWebNext> {
+export class AccessLogMiddleware
+  implements IMiddleware<Context, IMidwayWebNext>
+{
   @App()
   app: IMidwayWebApplication;
 

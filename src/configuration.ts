@@ -14,7 +14,6 @@ import { AccessLogMiddleware } from './middleware/access_log';
 import { ErrorHandlerMiddleware } from './middleware/error_handler';
 import { RequestIdMiddleware } from './middleware/request_id';
 
-
 @Configuration({
   imports: [egg, validate, orm, jaeger, koid, redis, task],
   importConfigs: [join(__dirname, './config')],
@@ -24,6 +23,10 @@ export class ContainerLifeCycle implements ILifeCycle {
   app: Application;
 
   async onReady() {
-    this.app.useMiddleware([RequestIdMiddleware, AccessLogMiddleware, ErrorHandlerMiddleware])
+    this.app.useMiddleware([
+      RequestIdMiddleware,
+      AccessLogMiddleware,
+      ErrorHandlerMiddleware,
+    ]);
   }
 }

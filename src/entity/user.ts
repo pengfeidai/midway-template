@@ -13,7 +13,7 @@ export class User {
   age: number;
 
   @Column({
-    length: 64
+    length: 64,
   })
   phoneNumber: string;
 }

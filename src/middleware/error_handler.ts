@@ -1,13 +1,13 @@
-import {
-  IMidwayWebNext,
-} from '@midwayjs/web';
+import { IMidwayWebNext } from '@midwayjs/web';
 import { IMiddleware } from '@midwayjs/core';
 import { Middleware } from '@midwayjs/decorator';
 import { Context } from 'egg';
 import SysError from '../common/sys_error';
 
 @Middleware()
-export class ErrorHandlerMiddleware implements IMiddleware<Context, IMidwayWebNext> {
+export class ErrorHandlerMiddleware
+  implements IMiddleware<Context, IMidwayWebNext>
+{
   resolve() {
     return async (ctx: Context, next: IMidwayWebNext) => {
       try {
@@ -21,7 +21,10 @@ export class ErrorHandlerMiddleware implements IMiddleware<Context, IMidwayWebNe
         const sysErr = err as SysError;
         const [message, messageStatus] = sysErr.message?.split(' &>');
         let status = sysErr.status || parseInt(messageStatus) || 500;
-        if (sysErr.name === 'ValidationError' || message === 'ValidationError') {
+        if (
+          sysErr.name === 'ValidationError' ||
+          message === 'ValidationError'
+        ) {
           status = 422;
         }
 
@@ -29,13 +32,13 @@ export class ErrorHandlerMiddleware implements IMiddleware<Context, IMidwayWebNe
 
         // 生产环境时 500 错误的详细错误内容不返回给客户端，因为可能包含敏感信息
         const error =
-        status === 500 && ctx.app.config.env === 'prod'
-          ? 'Internal Server Error'
-          : message;
+          status === 500 && ctx.app.config.env === 'prod'
+            ? 'Internal Server Error'
+            : message;
 
         // 从 error 对象上读出各个属性，设置到响应中
-        ctx.body = { 
-          code: status, 
+        ctx.body = {
+          code: status,
           data: null,
           message: error,
         };
@@ -44,7 +47,7 @@ export class ErrorHandlerMiddleware implements IMiddleware<Context, IMidwayWebNe
         }
         ctx.status = status;
       }
-    }
+    };
   }
 
   static getName(): string {
